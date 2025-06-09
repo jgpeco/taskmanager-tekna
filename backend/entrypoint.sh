@@ -8,7 +8,7 @@ echo "Running migrations..."
 npx prisma migrate deploy
 
 echo "Running seed..."
-npx tsx prisma/seed.ts
+npx prisma db seed
 
 echo "Starting server..."
 exec node dist/index.js
