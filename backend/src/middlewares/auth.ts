@@ -1,12 +1,8 @@
 import { Request, Response, NextFunction } from 'express'
-import jwt from 'jsonwebtoken'
+import jwt, { JwtPayload } from 'jsonwebtoken'
 import { parseBearer } from '../utils/bearer'
 
-export function authenticateToken(
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> | void {
+export function authenticateToken(req: Request, res: Response, next: NextFunction): void {
   const authHeader = req.headers['authorization']
   const token = parseBearer(authHeader)
 
@@ -15,10 +11,17 @@ export function authenticateToken(
     return
   }
 
-  jwt.verify(token, process.env.JWT_SECRET as string, (err, user) => {
-    if (err) return res.status(403).json({ message: 'Invalid token.' })
-    console.log('req user', user)
-    req.user = user
+  jwt.verify(token, process.env.JWT_SECRET as string, (err, decoded) => {
+    if (err || typeof decoded !== 'object' || !('id' in decoded) || !('email' in decoded)) {
+      res.status(403).json({ message: 'Invalid token.' })
+      return
+    }
+
+    req.user = {
+      id: (decoded as JwtPayload).id,
+      email: (decoded as JwtPayload).email
+    }
+
     next()
   })
 }
