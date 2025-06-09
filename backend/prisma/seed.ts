@@ -16,7 +16,27 @@ async function main() {
     }
   })
 
-  console.log('Seed complete:', user)
+  const tasks = await prisma.task.createMany({
+    data: [
+      {
+        title: 'New task',
+        status: 'NEW',
+        userId: user.id
+      },
+      {
+        title: 'Task in progress',
+        status: 'IN_PROGRESS',
+        userId: user.id
+      },
+      {
+        title: 'Task completed',
+        status: 'COMPLETED',
+        userId: user.id
+      }
+    ]
+  })
+
+  console.log('Seed complete:', { user, tasks })
 }
 
 main()
