@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 import { RouterLink } from '@angular/router'
-
+import { AuthService } from '../../services/auth'
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -28,7 +28,16 @@ export class RegisterComponent {
   email: string = ''
   password: string = ''
 
+  constructor(private authService: AuthService) {}
+
   onSubmit() {
-    console.log('Register attempt:', this.email, this.password)
+    this.authService.register({ email: this.email, password: this.password }).subscribe({
+      next: (response) => {
+        console.log('Register realized in component:', response)
+      },
+      error: (err) => {
+        console.error('Register error in component:', err)
+      }
+    })
   }
 }
