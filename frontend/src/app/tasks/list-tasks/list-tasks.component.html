@@ -19,7 +19,7 @@
 
     <div *ngIf="!loading && tasks.length === 0 && !error" class="no-tasks-message">
       <p>You don't have any tasks yet. Start by creating a new one!</p>
-      <button mat-raised-button color="accent" routerLink="/tasks/new">Create New Task</button>
+      <button mat-raised-button color="accent" (click)="onCreateNewTask()">Create New Task</button>
     </div>
 
     <table
