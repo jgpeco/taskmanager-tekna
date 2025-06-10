@@ -66,6 +66,24 @@ export class ListTasksComponent implements OnInit {
     })
   }
 
+  onCreateNewTask(): void {
+    const dialogRef = this.dialog.open(TaskFormComponent, {
+      width: '500px',
+      disableClose: true,
+      data: {
+        isNew: true
+      } as TaskFormDialogData
+    })
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.loadTasks()
+      } else {
+        console.log('Task creation cancelled.')
+      }
+    })
+  }
+
   onEditTask(task: Task): void {
     const dialogRef = this.dialog.open(TaskFormComponent, {
       width: '500px',

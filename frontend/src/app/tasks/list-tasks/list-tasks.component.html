@@ -1,6 +1,10 @@
 <mat-card class="task-list-card">
-  <mat-card-header>
+  <mat-card-header class="task-list-card-header">
     <mat-card-title>Your Tasks</mat-card-title>
+    <button mat-flat-button color="primary" (click)="onCreateNewTask()">
+      <mat-icon>add</mat-icon>
+      New Task
+    </button>
   </mat-card-header>
   <mat-card-content>
     <div *ngIf="loading" class="spinner-container">

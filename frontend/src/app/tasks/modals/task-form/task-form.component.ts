@@ -67,7 +67,18 @@ export class TaskFormComponent {
     const { title, status } = this.taskForm.value
 
     if (this.isNewTask) {
-      console.log('create new')
+      this.taskService.createTask({ title, status }).subscribe({
+        next: (task) => {
+          this.snackBar.open('Task created successfully!', 'Close', {
+            duration: 3000,
+            panelClass: ['success-snackbar']
+          })
+          this.dialogRef.close(true)
+        },
+        error: (err) => {
+          this.dialogRef.close(false)
+        }
+      })
     } else {
       if (this.currentTask) {
         const updateDto: UpdateTaskDto = { title, status }
