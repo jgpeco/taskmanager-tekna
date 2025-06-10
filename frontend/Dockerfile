@@ -1,20 +1,12 @@
-# Build stage
-FROM node:22-alpine AS build
-
+# Stage 1
+FROM node:alpine AS build
 WORKDIR /app
-
-COPY package*.json ./
+COPY package.json package-lock.json ./
 RUN npm install
-
 COPY . .
+RUN npm run build
 
-RUN npm run build -- --configuration production
-
-# Production stage
+# Stage 2
 FROM nginx:alpine
-
-COPY --from=build /app/dist/frontend /usr/share/nginx/html
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+COPY --from=build /app/dist/frontend/browser /usr/share/nginx/html
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
