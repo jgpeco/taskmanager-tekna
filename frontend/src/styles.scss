@@ -9,23 +9,29 @@ body {
 }
 
 // MatSnackbar
-.success-snackbar {
-  background-color: #4caf50; /* Verde */
-  color: white;
-}
 
-.error-snackbar {
-  background-color: #f44336; /* Vermelho */
-  color: white;
-}
+.mat-mdc-snack-bar-container {
+  &.success-snackbar {
+    .mat-mdc-snack-bar-container,
+    .mat-mdc-snackbar-surface {
+      background-color: #4caf50 !important;
+      color: white !important;
+    }
+  }
 
-.info-snackbar {
-  background-color: #2196f3; /* Azul */
-  color: white;
-}
+  &.error-snackbar {
+    .mat-mdc-snack-bar-container,
+    .mat-mdc-snackbar-surface {
+      background-color: #f44336 !important;
+      color: white !important;
+    }
+  }
 
-.mat-mdc-snack-bar-container.success-snackbar .mat-mdc-button-base,
-.mat-mdc-snack-bar-container.error-snackbar .mat-mdc-button-base,
-.mat-mdc-snack-bar-container.info-snackbar .mat-mdc-button-base {
-  color: white !important;
+  &.info-snackbar {
+    .mat-mdc-snack-bar-container,
+    .mat-mdc-snackbar-surface {
+      background-color: #2196f3 !important;
+      color: white !important;
+    }
+  }
 }
