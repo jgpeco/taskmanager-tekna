@@ -2,12 +2,13 @@ import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { RouterLink, RouterOutlet } from '@angular/router'
 
-// Angular Material Imports
 import { MatToolbarModule } from '@angular/material/toolbar'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatListModule } from '@angular/material/list'
+
+import { AuthService } from './services/auth'
 
 @Component({
   selector: 'app-root',
@@ -28,4 +29,10 @@ import { MatListModule } from '@angular/material/list'
 })
 export class AppComponent {
   title = 'Task Manager'
+
+  constructor(public authService: AuthService) {}
+
+  onLogout(): void {
+    this.authService.logout()
+  }
 }

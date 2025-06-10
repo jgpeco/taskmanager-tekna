@@ -3,8 +3,18 @@
     <mat-icon>menu</mat-icon>
     <span>{{ title }}</span>
   </div>
-  <span class="example-spacer"></span> <a mat-button routerLink="/login">Login</a>
-  <a mat-button routerLink="/register">Sign up</a>
+
+  <span class="example-spacer"></span>
+
+  <ng-container *ngIf="!authService.isLoggedIn()">
+    <a mat-button routerLink="/login">Login</a>
+    <a mat-button routerLink="/register">Register</a>
+  </ng-container>
+
+  <ng-container *ngIf="authService.isLoggedIn()">
+    <a mat-button routerLink="/tasks">Tasks</a>
+    <button mat-button (click)="onLogout()">Logout</button>
+  </ng-container>
 </mat-toolbar>
 
 <div class="app-main-content">
@@ -12,5 +22,5 @@
 </div>
 
 <footer class="app-footer">
-  <p>&copy; 2025 Task Manager Tekna. Todos os direitos reservados.</p>
+  <p>&copy; 2025 Task Manager Tekna. All rights reserved.</p>
 </footer>
