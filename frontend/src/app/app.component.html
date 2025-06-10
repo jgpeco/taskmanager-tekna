@@ -1,0 +1,16 @@
+<mat-toolbar color="primary">
+  <div class="app-nav-title">
+    <mat-icon>menu</mat-icon>
+    <span>{{ title }}</span>
+  </div>
+  <span class="example-spacer"></span> <a mat-button routerLink="/login">Login</a>
+  <a mat-button routerLink="/register">Sign up</a>
+</mat-toolbar>
+
+<div class="app-main-content">
+  <router-outlet></router-outlet>
+</div>
+
+<footer class="app-footer">
+  <p>&copy; 2025 Task Manager Tekna. Todos os direitos reservados.</p>
+</footer>
