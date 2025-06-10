@@ -38,7 +38,7 @@ export class AuthService {
           panelClass: ['success-snackbar']
         })
 
-        this.router.navigate(['/dashboard'])
+        this.router.navigate(['/tasks'])
       }),
       catchError(this.handleError.bind(this))
     )
