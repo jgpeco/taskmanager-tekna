@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs'
 import { catchError, tap } from 'rxjs/operators'
 import { Router } from '@angular/router'
 import { MatSnackBar } from '@angular/material/snack-bar'
+import { handleApiError } from '../core/helpers/api-error.handler'
 
 interface AuthCredentials {
   email: string
@@ -40,7 +41,7 @@ export class AuthService {
 
         this.router.navigate(['/tasks'])
       }),
-      catchError(this.handleError.bind(this))
+      catchError((error: HttpErrorResponse) => handleApiError(error, this.snackBar, this.router))
     )
   }
 
@@ -56,7 +57,7 @@ export class AuthService {
 
         this.router.navigate(['/login'])
       }),
-      catchError(this.handleError.bind(this))
+      catchError((error: HttpErrorResponse) => handleApiError(error, this.snackBar, this.router))
     )
   }
 
@@ -75,45 +76,5 @@ export class AuthService {
 
   getToken(): string | null {
     return localStorage.getItem('auth_token')
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    let errorMessage = 'An unknown error occurred.'
-
-    if (error.status >= 500 && error.status < 600) {
-      this.router.navigate(['/server-error'])
-      errorMessage = 'A server error occurred. Please try again later.'
-      this.snackBar.open(errorMessage, 'Close', {
-        duration: 5000,
-        panelClass: ['error-snackbar']
-      })
-      return throwError(() => new Error(errorMessage))
-    } else if (error.error instanceof ErrorEvent) {
-      errorMessage = `Error: ${error.error.message}`
-      this.snackBar.open(`Error: ${errorMessage}`, 'Close', {
-        duration: 5000,
-        panelClass: ['error-snackbar']
-      })
-    } else {
-      console.error(
-        `Backend returned code ${error.status}, ` + `body: ${JSON.stringify(error.error)}`
-      )
-
-      if (error.status === 401 || error.status === 403) {
-        errorMessage = 'Invalid credentials or access denied.'
-      } else if (error.status === 404) {
-        errorMessage = 'Resource not found.'
-      } else if (error.error && error.error.message) {
-        errorMessage = error.error.message
-      } else {
-        errorMessage = `Server error: ${error.status} - ${error.statusText || 'Error'}`
-      }
-      this.snackBar.open(`Error: ${errorMessage}`, 'Close', {
-        duration: 5000,
-        panelClass: ['error-snackbar']
-      })
-    }
-
-    return throwError(() => new Error(errorMessage))
   }
 }
