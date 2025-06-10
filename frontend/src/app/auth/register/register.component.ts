@@ -25,11 +25,10 @@ import { RouterLink } from '@angular/router'
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent {
-  username: string = ''
   email: string = ''
   password: string = ''
 
   onSubmit() {
-    console.log('Register attempt:', this.username, this.email, this.password)
+    console.log('Register attempt:', this.email, this.password)
   }
 }
