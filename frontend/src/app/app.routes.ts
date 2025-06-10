@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router'
 import { LoginComponent } from './auth/login/login.component'
 import { RegisterComponent } from './auth/register/register.component'
-import { ErrorPageComponent } from './shared/error-page/error-page'
-import { ListTasksComponent } from './tasks/list-tasks/list-tasks'
+import { ErrorPageComponent } from './shared/error-page/error-page.component'
+import { ListTasksComponent } from './tasks/list-tasks/list-tasks.component'
 import { authGuard } from './guards/auth-guard'
 
 export const routes: Routes = [

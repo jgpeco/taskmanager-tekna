@@ -7,7 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 import { MatButtonModule } from '@angular/material/button'
 import { RouterLink } from '@angular/router'
-import { AuthService } from '../../services/auth'
+import { AuthService } from '../../services/auth.service'
 @Component({
   selector: 'app-register',
   standalone: true,

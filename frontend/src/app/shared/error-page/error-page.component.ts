@@ -10,8 +10,8 @@ import { MatButtonModule } from '@angular/material/button'
   selector: 'app-error-page',
   standalone: true,
   imports: [CommonModule, MatCardModule, MatButtonModule],
-  templateUrl: './error-page.html',
-  styleUrls: ['./error-page.scss']
+  templateUrl: './error-page.component.html',
+  styleUrls: ['./error-page.component.scss']
 })
 export class ErrorPageComponent {
   constructor(private router: Router) {}

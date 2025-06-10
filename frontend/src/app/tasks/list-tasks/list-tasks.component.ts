@@ -6,8 +6,8 @@ import { MatCardModule } from '@angular/material/card'
   selector: 'app-list-tasks',
   standalone: true,
   imports: [CommonModule, MatCardModule],
-  templateUrl: './list-tasks.html',
-  styleUrls: ['./list-tasks.scss']
+  templateUrl: './list-tasks.component.html',
+  styleUrls: ['./list-tasks.component.scss']
 })
 export class ListTasksComponent {
   // Fetching and display tasks will go here later
