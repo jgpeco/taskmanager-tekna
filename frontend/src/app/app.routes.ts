@@ -3,7 +3,7 @@ import { LoginComponent } from './auth/login/login.component'
 import { RegisterComponent } from './auth/register/register.component'
 import { ErrorPageComponent } from './shared/error-page/error-page.component'
 import { ListTasksComponent } from './tasks/list-tasks/list-tasks.component'
-import { authGuard } from './guards/auth-guard'
+import { authGuard } from './core/guards/auth-guard'
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
