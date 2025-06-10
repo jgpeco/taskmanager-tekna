@@ -14,6 +14,7 @@ import { TaskService } from '../../services/task.service'
 import { Task, TaskStatus } from '../../shared/interfaces/task.interface'
 
 import { ConfirmModalComponent } from '../modals/confirm-modal/confirm-modal.component'
+import { TaskFormComponent, TaskFormDialogData } from '../modals/task-form/task-form.component'
 
 @Component({
   selector: 'app-list-tasks',
@@ -66,8 +67,22 @@ export class ListTasksComponent implements OnInit {
   }
 
   onEditTask(task: Task): void {
-    console.log('Edit Task:', task)
-    alert(`Editing task: ${task.title} (ID: ${task.id})`)
+    const dialogRef = this.dialog.open(TaskFormComponent, {
+      width: '500px',
+      disableClose: true,
+      data: {
+        task: task,
+        isNew: false
+      } as TaskFormDialogData
+    })
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.loadTasks()
+      } else {
+        console.log('Task edition cancelled or failed.')
+      }
+    })
   }
 
   onDeleteTask(task: Task): void {
