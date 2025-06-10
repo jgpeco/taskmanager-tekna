@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core'
-import { CommonModule } from '@angular/common' // Necessário para ngIf, ngFor
+import { CommonModule } from '@angular/common'
 
-// Angular Material Modules (importar aqui se o componente for standalone)
 import { MatTableModule } from '@angular/material/table'
 import { MatButtonModule } from '@angular/material/button'
 import { MatIconModule } from '@angular/material/icon'
 import { MatTooltipModule } from '@angular/material/tooltip'
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatCardModule } from '@angular/material/card'
+import { MatDialog, MatDialogModule } from '@angular/material/dialog'
+import { MatSnackBar } from '@angular/material/snack-bar'
 
 import { TaskService } from '../../services/task.service'
 import { Task, TaskStatus } from '../../shared/interfaces/task.interface'
+
+import { ConfirmModalComponent } from '../modals/confirm-modal/confirm-modal.component'
 
 @Component({
   selector: 'app-list-tasks',
@@ -22,7 +25,8 @@ import { Task, TaskStatus } from '../../shared/interfaces/task.interface'
     MatIconModule,
     MatTooltipModule,
     MatProgressSpinnerModule,
-    MatCardModule
+    MatCardModule,
+    MatDialogModule
   ],
   templateUrl: './list-tasks.component.html',
   styleUrls: ['./list-tasks.component.scss']
@@ -34,7 +38,11 @@ export class ListTasksComponent implements OnInit {
 
   displayedColumns: string[] = ['title', 'status', 'actions']
 
-  constructor(private taskService: TaskService) {}
+  constructor(
+    private taskService: TaskService,
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
+  ) {}
 
   ngOnInit(): void {
     this.loadTasks()
@@ -63,18 +71,39 @@ export class ListTasksComponent implements OnInit {
   }
 
   onDeleteTask(task: Task): void {
-    if (confirm(`Are you sure you want to delete the task "${task.title}"?`)) {
-      this.taskService.deleteTask(task.id).subscribe({
-        next: () => {
-          console.log(`Task ${task.id} deleted.`)
-          this.loadTasks()
-        },
-        error: (err) => {
-          console.error(`Error deleting task ${task.id}:`, err)
-          this.error = 'Failed to delete task. Please try again.'
-        }
-      })
-    }
+    const dialogRef = this.dialog.open(ConfirmModalComponent, {
+      width: '400px',
+      data: {
+        title: 'Confirm Deletion',
+        message: `Are you sure you want to delete the task "${task.title}"? This action cannot be undone.`,
+        confirmButtonText: 'Delete',
+        cancelButtonText: 'Cancel'
+      }
+    })
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.taskService.deleteTask(task.id).subscribe({
+          next: () => {
+            console.log(`Task ${task.id} deleted successfully.`)
+            this.snackBar.open(`Task "${task.title}" deleted successfully!`, 'Close', {
+              duration: 3000,
+              panelClass: ['success-snackbar']
+            })
+            this.loadTasks()
+          },
+          error: (err) => {
+            console.error(`Error deleting task ${task.id}:`, err)
+            this.snackBar.open('Failed to delete task. Please try again.', 'Close', {
+              duration: 5000,
+              panelClass: ['error-snackbar']
+            })
+          }
+        })
+      } else {
+        console.log('Deletion cancelled.')
+      }
+    })
   }
 
   formatStatus(status: TaskStatus): string {
