@@ -1,0 +1,26 @@
+.register-card {
+  max-width: 400px;
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+
+  mat-card-header {
+    margin-bottom: 20px;
+    justify-content: center;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
+
+.register-button {
+  margin-top: 20px;
+  padding: 10px 0;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
