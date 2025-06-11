@@ -1,11 +1,12 @@
-import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core'
+import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core'
 import { provideRouter } from '@angular/router'
-import { provideHttpClient, withInterceptorsFromDi, withFetch } from '@angular/common/http'
+import { provideHttpClient, withInterceptorsFromDi, HTTP_INTERCEPTORS } from '@angular/common/http' // Importar HTTP_INTERCEPTORS
 import { provideAnimations } from '@angular/platform-browser/animations'
-import { HTTP_INTERCEPTORS } from '@angular/common/http'
 
 import { routes } from './app.routes'
 import { AuthInterceptor } from './core/interceptors/auth.interceptor'
+import { MatSnackBarModule } from '@angular/material/snack-bar'
+import { MatDialogModule } from '@angular/material/dialog'
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -17,6 +18,7 @@ export const appConfig: ApplicationConfig = {
       useClass: AuthInterceptor,
       multi: true
     },
-    provideAnimations()
+    provideAnimations(),
+    importProvidersFrom(MatSnackBarModule, MatDialogModule)
   ]
 }
