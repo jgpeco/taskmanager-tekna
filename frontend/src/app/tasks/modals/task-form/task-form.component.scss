@@ -12,4 +12,8 @@ mat-dialog-actions {
 
 .dialog-task-form {
   margin-top: 12px;
+
+  mat-form-field {
+    padding-bottom: 12px;
+  }
 }
