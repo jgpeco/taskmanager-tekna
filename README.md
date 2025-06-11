@@ -165,4 +165,4 @@ When it comes time to upgrade this MVP to a next version, there's some technical
 
 The web app was created to be a fullstack application that can process the basic CRUD operations for an user that has its one email and password. I learnt a lot coding this project, primarily about docker containerization, the configs of an nginx build in an angular app, how to run and operate a postgres database and it was the first time that I developed something with Angular, it was a pleasant surprise to see the frontend working.
 
-Overall, this was a nice project that, even with the lack of some features (mostly tests), should work seamless. I hope you'll like it. =)
+Overall, this was a nice project that, even with the lack of some features (mostly tests), should work seamlessly. I hope you'll like it. =)
