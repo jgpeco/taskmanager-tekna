@@ -10,7 +10,7 @@ import { authenticateToken } from '../middlewares/auth'
 
 const router = Router()
 
-router.use(authenticateToken) // todas as rotas exigem auth
+router.use(authenticateToken)
 
 router.get('/tasks', listTasks)
 router.get('/tasks/:id', getTask)
