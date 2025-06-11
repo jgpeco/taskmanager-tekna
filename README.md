@@ -72,8 +72,6 @@ DATABASE_URL="postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTG
 JWT_SECRET=a_secure_random_string_for_jwt_secret
 ```
 
-[!NOTE]
-
 > ### Database Hostname
 >
 > When configuring the `DATABASE_URL` in your `.env` file, it is crucial that the hostname specified in the connection string is `db`. This refers to the name of the database service as defined in the `docker-compose.yml` file, allowing the backend container to correctly resolve and connect to the database container within the Docker network.
@@ -149,6 +147,7 @@ When it comes time to upgrade this MVP to a next version, there's some technical
 - Integrate a logging system (Morgan).
 - Implement database and backend validation using `@@unique(title, userId)`, create uniqueness to emails in the register as well.
 - Transition from numeric IDs to UUIDs for enhanced uniqueness and security.
+- Create a documentation for the API routes (Swagger).
 
 ### Frontend
 
