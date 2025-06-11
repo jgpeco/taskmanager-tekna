@@ -10,7 +10,8 @@
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "clean:admin:tasks": "ts-node src/scripts/cleanUserTasks.ts"
   },
   "keywords": [],
   "author": "",
